@@ -5,6 +5,7 @@ import (
 
 	"github.com/elton/bookstore/api/internal/svc"
 	"github.com/elton/bookstore/api/internal/types"
+	"github.com/elton/bookstore/rpc/add/adder"
 
 	"github.com/tal-tech/go-zero/core/logx"
 )
@@ -23,8 +24,16 @@ func NewAddLogic(ctx context.Context, svcCtx *svc.ServiceContext) AddLogic {
 	}
 }
 
-func (l *AddLogic) Add(req types.AddRequst) (*types.AddResponse, error) {
-	// todo: add your logic here and delete this line
+func (l *AddLogic) Add(req types.AddRequest) (*types.AddResponse, error) {
+	resp, err := l.svcCtx.Adder.Add(l.ctx, &adder.AddRequest{
+		Book:  req.Book,
+		Price: req.Price,
+	})
+	if err != nil {
+		return nil, err
+	}
 
-	return &types.AddResponse{}, nil
+	return &types.AddResponse{
+		Ok: resp.Ok,
+	}, nil
 }

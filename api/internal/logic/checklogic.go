@@ -5,6 +5,7 @@ import (
 
 	"github.com/elton/bookstore/api/internal/svc"
 	"github.com/elton/bookstore/api/internal/types"
+	"github.com/elton/bookstore/rpc/check/checker"
 
 	"github.com/tal-tech/go-zero/core/logx"
 )
@@ -24,7 +25,15 @@ func NewCheckLogic(ctx context.Context, svcCtx *svc.ServiceContext) CheckLogic {
 }
 
 func (l *CheckLogic) Check(req types.CheckRequest) (*types.CheckResponse, error) {
-	// todo: add your logic here and delete this line
+	resp, err := l.svcCtx.Checker.Check(l.ctx, &checker.CheckRequest{
+		Book: req.Book,
+	})
+	if err != nil {
+		return nil, err
+	}
 
-	return &types.CheckResponse{}, nil
+	return &types.CheckResponse{
+		Found: resp.Found,
+		Price: resp.Price,
+	}, nil
 }

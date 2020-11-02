@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package check;
+
+message checkRequest {
+  string book = 1;
+}
+
+message checkResponse {
+  bool found = 1;
+  int64 price = 2;
+}
+
+service checker {
+  rpc check(checkRequest) returns(checkResponse);
+}

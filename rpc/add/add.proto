@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package add;
+
+message addRequest {
+  string book = 1;
+  int64 price = 2;
+}
+
+message addResponse {
+    bool ok = 1;
+}
+
+service adder {
+    rpc add(addRequest) returns(addResponse);
+}
+    

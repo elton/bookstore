@@ -6,7 +6,7 @@ info(
 )
 
 type (
-	addRequst struct {
+	addRequest struct {
 		book  string `form:"book"`
 		price int64  `form:"price"`
 	}
@@ -31,7 +31,7 @@ service bookstore-api {
 	@server(
 		handler: AddHandler
 	)
-	get /add(addRequst) returns(addResponse)
+	get /add(addRequest) returns(addResponse)
 
 	@server(
 		handler: CheckHandler
