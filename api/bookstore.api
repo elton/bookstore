@@ -1,0 +1,43 @@
+info(
+	title: BookStore API
+	desc: A API for bookstore application
+	author: "Elton Zheng"
+	email: "elton.zheng.sh@gmail.com"
+)
+
+type (
+	addRequst struct {
+		book  string `form:"book"`
+		price int64  `form:"price"`
+	}
+
+	addResponse struct {
+		ok bool `json:"ok"`
+	}
+)
+
+type (
+	checkRequest struct {
+		book string `form:"book"`
+	}
+
+	checkResponse struct {
+		found bool  `json:"found"`
+		price int64 `json:"price"`
+	}
+)
+
+service bookstore-api {
+	@server(
+		handler: AddHandler
+	)
+	get /add(addRequst) returns(addResponse)
+
+	@server(
+		handler: CheckHandler
+	)
+	get /check(checkRequest) returns(checkResponse)
+	
+	
+}
+
